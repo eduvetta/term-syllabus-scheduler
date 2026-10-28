@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to Turn a Term Syllabus into a Weekly Teaching Schedule</title>
+  <meta name="description" content="Break down a term syllabus across available school weeks, account for holidays and exam dates, and build a realistic calendar of topics.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to Turn a Term Syllabus into a Weekly Teaching Schedule">
+  <meta property="og:description" content="Break down a term syllabus across available school weeks, account for holidays and exam dates, and build a realistic calendar of topics.">
+  <meta property="og:site_name" content="Lesson Desk">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to Turn a Term Syllabus into a Weekly Teaching Schedule">
+  <meta name="twitter:description" content="Break down a term syllabus across available school weeks, account for holidays and exam dates, and build a realistic calendar of topics.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231f2937'/%3E%3Cpath d='M9 10h14M9 16h14M9 22h9' stroke='%23fbbf24' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+/* Lesson Desk — standalone guide page */
+
+:root {
+  --ink: #1f2937;
+  --ink-2: #374151;
+  --ink-3: #6b7280;
+  --accent: #b45309;
+  --accent-strong: #92400e;
+  --accent-soft: #fffbeb;
+  --accent-line: #fde68a;
+  --line: #e5e7eb;
+  --line-soft: #f3f4f6;
+  --paper: #ffffff;
+  --paper-2: #fafaf9;
+  --font: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --radius: 16px;
+  --container: 1000px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink-2);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 20px; }
+@media (min-width: 640px) { .container { padding: 0 24px; } }
+
+.skip-link {
+  position: absolute; left: 16px; top: -100px;
+  padding: 10px 14px; border-radius: 8px;
+  background: var(--ink); color: #fff; font-weight: 600; z-index: 100;
+}
+.skip-link:focus { top: 16px; }
+
+a { color: var(--accent); font-weight: 600; text-decoration: underline; text-decoration-color: var(--accent-line); text-underline-offset: 4px; border-radius: 3px; }
+a:hover { text-decoration-color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+/* Header */
+.site-header { border-bottom: 1px solid var(--line-soft); background: var(--paper); }
+.site-header__inner { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 20px; padding-top: 22px; padding-bottom: 22px; }
+.site-name { font-size: 18px; font-weight: 800; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; }
+.site-tagline { margin: 0; font-size: 14px; color: var(--ink-3); }
+
+/* Hero */
+.hero { position: relative; isolation: isolate; overflow: hidden; border-bottom: 1px solid var(--line-soft); background: var(--paper-2); }
+.hero__glow {
+  position: absolute; top: -160px; right: -140px; z-index: -1;
+  width: 460px; height: 460px; border-radius: 50%;
+  background: #fbbf24; opacity: .18; filter: blur(120px); pointer-events: none;
+}
+.hero .container { padding-top: 44px; padding-bottom: 52px; }
+@media (min-width: 768px) { .hero .container { padding-top: 64px; padding-bottom: 76px; } }
+
+.eyebrow { margin: 0 0 14px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+
+h1 {
+  margin: 0; max-width: 56rem;
+  font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.12; letter-spacing: -0.02em; color: var(--ink);
+}
+.hero__intro { margin: 26px 0 0; max-width: 46rem; font-size: 18px; line-height: 1.7; color: var(--ink-2); }
+.hero__meta { margin: 20px 0 0; font-size: 13px; color: var(--ink-3); }
+
+/* Layout */
+.layout { display: grid; gap: 40px; padding-top: 44px; padding-bottom: 56px; }
+/* Sidebar sits above the article on small screens, beside it on wide ones. */
+.aside { order: -1; }
+@media (min-width: 1024px) {
+  .layout { grid-template-columns: minmax(0, 1fr) 230px; gap: 64px; padding-top: 64px; padding-bottom: 80px; }
+  .aside { order: 2; }
+}
+
+.body { min-width: 0; display: grid; gap: 44px; }
+.body h2 {
+  margin: 0 0 14px; font-size: clamp(1.4rem, 3vw, 1.75rem); font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; color: var(--ink);
+}
+.body p { margin: 0; }
+.body p + p, .body ol + p { margin-top: 16px; }
+.body em { color: var(--ink); }
+
+.steps { margin: 20px 0 0; padding: 0; list-style: none; display: grid; gap: 18px; }
+.steps li { display: flex; gap: 14px; }
+.steps__number {
+  flex: none; display: flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; margin-top: 3px; border-radius: 50%;
+  background: var(--accent-soft); border: 1px solid var(--accent-line); color: var(--accent-strong); font-size: 13px; font-weight: 700;
+}
+
+.example { padding: 24px; border: 1px solid var(--accent-line); border-radius: var(--radius); background: var(--accent-soft); }
+@media (min-width: 768px) { .example { padding: 32px; } }
+.example h2 { font-size: 1.25rem; }
+.example p + p { margin-top: 12px; }
+
+.checks { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
+.checks li { display: flex; gap: 12px; }
+.checks__icon { flex: none; width: 18px; height: 18px; margin-top: 6px; color: var(--accent); }
+
+/* The closing recommendation */
+.tool { margin-top: 8px; padding: 28px 24px; border-top: 3px solid var(--ink); background: var(--paper-2); border-radius: 0 0 var(--radius) var(--radius); }
+@media (min-width: 768px) { .tool { padding: 36px 32px; } }
+.tool__cta { margin-top: 24px !important; }
+
+.button {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 24px; border-radius: 999px;
+  background: var(--ink); color: #fff; font-size: 15px; font-weight: 700; text-decoration: none;
+  transition: background-color .15s ease;
+}
+.button:hover { background: #111827; }
+
+/* Table of contents */
+.toc { padding: 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-2); }
+@media (min-width: 1024px) { .toc { position: sticky; top: 24px; } }
+.toc__title { margin: 0 0 14px; font-size: 14px; font-weight: 700; color: var(--ink); }
+.toc ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 14px; }
+@media (min-width: 1024px) { .toc ul { flex-direction: column; gap: 10px; } }
+.toc a { color: var(--ink-2); font-weight: 500; text-decoration: none; }
+.toc a:hover { color: var(--ink); }
+.toc a.is-active { color: var(--accent-strong); font-weight: 700; }
+
+/* Footer */
+.site-footer { padding: 32px 0 40px; border-top: 1px solid var(--line-soft); font-size: 14px; color: var(--ink-3); background: var(--paper-2); }
+.site-footer__inner { display: grid; gap: 10px; }
+.site-footer p { margin: 0; max-width: 46rem; }
+.site-footer strong { color: var(--ink); }
+.site-footer__copy { font-size: 13px; }
+
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Turn a Term Syllabus into a Weekly Teaching Schedule",
+    "description": "Break down a term syllabus across available school weeks, account for holidays and exam dates, and build a realistic calendar of topics.",
+    "inLanguage": "en",
+    "audience": { "@type": "EducationalAudience", "educationalRole": "teacher" },
+    "publisher": { "@type": "Organization", "name": "Lesson Desk" }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-name" href="./">Lesson Desk</a>
+      <p class="site-tagline">Short, practical answers to everyday teaching questions</p>
+    </div>
+  </header>
+
+  <main id="content" tabindex="-1">
+    <article>
+      <header class="hero">
+        <div class="hero__glow" aria-hidden="true"></div>
+        <div class="container">
+          <p class="eyebrow">Curriculum Pacing · Term Schedules</p>
+          <h1>How to Turn a Term Syllabus into a Weekly Teaching Schedule</h1>
+          <p class="hero__intro">Translating a dense syllabus document into a workable, day-by-day teaching calendar requires balancing instructional hours with essential revision buffers. Without an intentional distribution plan, teachers end up rushing through final chapters just days before exams.</p>
+          <p class="hero__meta">About 6 minutes to read · For teachers planning quarterly and term milestones</p>
+        </div>
+      </header>
+
+      <div class="container layout">
+        <div class="body">
+<section aria-labelledby="problem">
+<h2 id="problem">Textbook syllabus outlines ignore real-world school disruptions</h2>
+<p>Curriculum standards outline topics and learning goals without factoring in public holidays, unexpected school closures, or varying student learning speeds, leaving educators severely behind schedule by mid-term.</p>
+<p>When instructional workflows rely on disjointed tools or ad-hoc workarounds, momentum is lost and teachers spend disproportionate energy managing administrative friction rather than focusing on conceptual clarity.</p>
+</section>
+<section aria-labelledby="method">
+<h2 id="method">Distribute units across available term dates</h2>
+<p>Adopting a structured, repeatable system transforms this process from an exhausting chore into a dependable routine. Follow these actionable steps to set up the workflow cleanly:</p>
+<ol class="steps"><li><span class="steps__number" aria-hidden="true">1</span><div>Tally the exact number of instructional periods available across the semester, excluding all holidays and sports days.</div></li><li><span class="steps__number" aria-hidden="true">2</span><div>Group syllabus chapters into coherent teaching units and estimate required periods based on conceptual difficulty.</div></li><li><span class="steps__number" aria-hidden="true">3</span><div>Reserve fifteen percent of total class periods exclusively for revision, doubt resolution, and periodic mock tests.</div></li><li><span class="steps__number" aria-hidden="true">4</span><div>Map specific topics to calendar dates and establish a progress review checkpoint every three weeks.</div></li></ol>
+<p>Maintaining consistency across sessions is what produces dependable results. Once students become accustomed to this predictable rhythm, classroom management becomes significantly smoother.</p>
+</section>
+<section aria-labelledby="nuances">
+<h2 id="nuances">Adjusting pacing when classroom comprehension lags behind</h2>
+<p>Never sacrifice foundational comprehension just to meet an arbitrary calendar date. If a formative diagnostic reveals that half the batch has not mastered algebraic factorisation, spending an extra week there pays dividends when quadratic equations arrive next term.</p>
+<p>Keep your term calendar visible to both students and parents. When learners know the exact topic assigned to each week, absent students can catch up independently and parents can track academic pacing without calling the school office.</p>
+</section>
+
+          <section aria-labelledby="example" class="example">
+            <p class="eyebrow">Worked example</p>
+            <h2 id="example">Example: Grade 9 Science term schedule</h2>
+<p><strong>The scenario:</strong> In a fourteen-week term with 42 available periods, an instructor allocates 10 periods to Matter, 12 to Cell Biology, 12 to Motion, and preserves 8 dedicated periods for cumulative revision and practice exams.</p>
+<p><strong>The implementation:</strong> By applying the structured steps outlined above, the educator established clear ground rules, shared standardized reference materials in advance, and conducted the session with designated review pauses.</p>
+<p><strong>The outcome:</strong> Students demonstrated measurably higher comprehension, fewer administrative interruptions occurred during instructional time, and a clean, permanent digital study record was generated for post-class revision.</p>
+          </section>
+
+          <section aria-labelledby="checks">
+            <h2 id="checks">Before sharing the term calendar</h2>
+            <ul class="checks"><li><svg class="checks__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Never schedule new theoretical content into the final two weeks of an academic semester.</span></li><li><svg class="checks__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Review your syllabus pacing fortnightly so you can make gentle mid-course adjustments rather than hasty end-of-term rushes.</span></li><li><svg class="checks__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Every term week has a clearly stated conceptual focus and practical goal.</span></li><li><svg class="checks__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Formative quiz checkpoints are scheduled at the midpoint of every major unit.</span></li><li><svg class="checks__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Dates for syllabus completion and mock paper rounds are locked in advance.</span></li></ul>
+          </section>
+
+          <section aria-labelledby="tool" class="tool">
+            <p class="eyebrow">If you want term schedules synchronized</p>
+            <h2 id="tool">Turn term syllabi into actionable weekly milestones</h2>
+<p>EduVetta Lesson Planner turns your pasted curriculum outline into an organized, dated teaching calendar. It dates classes around your calendar holidays, reserves revision buffer periods automatically, and lets you fine-tune every topic. Create your free EduVetta account today to build realistic term schedules.</p>
+<p>Everything described in this guide can be executed without complex multi-app subscriptions. Modern educational platforms bring your teaching materials, student rosters, live interactions, and assessments into a single coherent interface.</p>
+<p>Explore <a href="https://eduvetta.com/features/teachers/lesson-planner" rel="noopener">EduVetta</a> to streamline this workflow, save hours of manual administration, and deliver an elevated learning experience for your students.</p>
+            <p class="tool__cta"><a class="button" href="https://eduvetta.com/features/teachers/lesson-planner" rel="noopener">Organize Your Term Syllabus on EduVetta</a></p>
+          </section>
+        </div>
+
+        <aside class="aside" aria-label="Guide navigation">
+          <nav class="toc" aria-label="On this page">
+            <p class="toc__title">In this guide</p>
+            <ul><li><a href="#problem">The trap of linear pacing</a></li><li><a href="#method">Step-by-step term scheduling</a></li><li><a href="#nuances">Managing pacing deviations</a></li><li><a href="#example">Worked example</a></li><li><a href="#checks">Before sharing the term calendar</a></li><li><a href="#tool">A tool that helps</a></li></ul>
+          </nav>
+        </aside>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p><strong>Lesson Desk</strong> publishes short, practical guides for teachers and educators. This guide mentions <a href="https://eduvetta.com" rel="noopener">EduVetta</a>, a unified platform for modern educators to manage classes, live digital boards, tests, assignments, student engagement, and administration.</p>
+      <p class="site-footer__copy">© <span id="year"></span> Lesson Desk</p>
+    </div>
+  </footer>
+
+  <script>
+// Small enhancements only: the page is complete without JavaScript.
+
+(function () {
+  // Footer year.
+  var year = document.getElementById("year");
+  if (year) year.textContent = String(new Date().getFullYear());
+
+  // Highlight the "In this guide" entry for the section currently in view.
+  // The ids live on the headings, so each heading's section is observed and
+  // mapped back to the link for that heading.
+  var links = Array.prototype.slice.call(document.querySelectorAll(".toc a[href^='#']"));
+  if (!("IntersectionObserver" in window) || links.length === 0) return;
+
+  var linkFor = new Map();
+  links.forEach(function (link) {
+    var target = document.querySelector(link.getAttribute("href"));
+    if (!target) return;
+    var section = target.closest("section") || target;
+    linkFor.set(section, link);
+  });
+
+  var current = null;
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var link = linkFor.get(entry.target);
+      if (!link) return;
+      if (current) current.classList.remove("is-active");
+      current = link;
+      current.classList.add("is-active");
+    });
+  }, { rootMargin: "-20% 0px -65% 0px", threshold: 0 });
+
+  linkFor.forEach(function (_link, section) { observer.observe(section); });
+})();
+
+  </script>
+</body>
+</html>
